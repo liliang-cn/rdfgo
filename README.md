@@ -7,24 +7,22 @@
 A SPARQL engine and a SHACL validator in Go, over a triple store you supply.
 **No dependencies** — `go list -m all` is one line.
 
-> **Conformance is not measured yet.** It has not been run against the W3C
-> SPARQL 1.1 or SHACL test suites, so nothing here claims a percentage. What it
-> has is 19 hand-written tests and a fuzz target. The feature list below is
-> what the code does, read off the code; treat it as a description and not as a
-> conformance claim until this paragraph is replaced by a number.
-
-```bash
-go get github.com/liliang-cn/rdfgo
-```
-
-```go
-engine := rdfgo.New(myStore)
-
-rows, err := engine.ExecuteSPARQL(ctx,
-    `SELECT ?s WHERE { ?s a <http://example.org/Person> }`)
-
-report, err := engine.ValidateSHACL(ctx, shapesGraph)
-```
+> **Conformance, measured.** Against the W3C suites, on 2026-08-30:
+> **SPARQL 1.1 — 214 of 564 attempted (37.9%). SHACL Core — 6 of 98 (6.1%),
+> and 2 of those 6 pass vacuously, so 4.** 66 further tests were not run (HTTP
+> protocol, `SERVICE`, CSV/TSV serialisation) and are excluded from both the
+> numerator and the denominator rather than counted as passes.
+>
+> Three things about how it was measured tilt the number **upward**: syntax
+> tests are decided by whether execution errors, `SELECT` comparison is
+> bag-based and blank-node-blind so `ORDER BY` is unchecked, and SHACL results
+> are compared on conforms plus focus/path/value only. The true figure is at or
+> below 33.2%.
+>
+> Use it where a 37% SPARQL engine is enough — and read
+> [CONFORMANCE.md](CONFORMANCE.md) first, which lists what is missing and, more
+> importantly, the ten places where it accepts a query and returns a **wrong
+> answer**. That list matters more than the percentage.
 
 ## Your store is four methods
 
