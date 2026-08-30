@@ -82,6 +82,41 @@ func ParseTriG(r io.Reader) ([]rdfgo.RDFTriple, error) {
 	return convertQuads(quads)
 }
 
+// ParseNTriples reads an N-Triples document.
+//
+// It is here because a conformance suite is written in it. The W3C SPARQL and
+// SHACL test suites carry their data and their expected graphs as .nt files
+// as often as .ttl, and a format the harness cannot read is a test that can
+// never be reported as anything but unrun -- which is the one result that
+// looks like a pass and is not one. The conversion is convertTriples', which
+// the Turtle path already goes through, so this adds a reader and no new way
+// for a term to be wrong.
+func ParseNTriples(r io.Reader) ([]rdfgo.RDFTriple, error) {
+	payload, err := io.ReadAll(r)
+	if err != nil {
+		return nil, fmt.Errorf("read n-triples payload: %w", err)
+	}
+	doc, err := rdfnt.ParseDocument(string(payload))
+	if err != nil {
+		return nil, fmt.Errorf("parse n-triples document: %w", err)
+	}
+	return convertTriples(doc)
+}
+
+// ParseNQuads reads an N-Quads document, keeping the graph label on each
+// triple the way ParseTriG does.
+func ParseNQuads(r io.Reader) ([]rdfgo.RDFTriple, error) {
+	payload, err := io.ReadAll(r)
+	if err != nil {
+		return nil, fmt.Errorf("read n-quads payload: %w", err)
+	}
+	doc, err := rdfnq.ParseDocument(string(payload))
+	if err != nil {
+		return nil, fmt.Errorf("parse n-quads document: %w", err)
+	}
+	return convertQuads(doc)
+}
+
 // WriteTriG serialises triples as TriG, grouping the ones that name a graph
 // into blocks and leaving the rest in the default graph.
 //
