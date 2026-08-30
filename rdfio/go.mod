@@ -13,14 +13,10 @@ go 1.25
 
 require (
 	github.com/0x51-dev/rdf v0.1.0
-	github.com/liliang-cn/rdfgo v0.0.0
+	github.com/liliang-cn/rdfgo v0.1.0
 )
 
 require (
 	github.com/0x51-dev/rids v0.1.0 // indirect
 	github.com/0x51-dev/upeg v0.1.0 // indirect
 )
-
-// Until rdfgo is tagged, the parent is next door. A replace is ignored by
-// anyone who depends on this module, so it costs them nothing.
-replace github.com/liliang-cn/rdfgo => ../

@@ -4,3 +4,5 @@ github.com/0x51-dev/rids v0.1.0 h1:uCb0lrYeE374b43rhy4keFUrVCSbMYSaSqLfoGveQH8=
 github.com/0x51-dev/rids v0.1.0/go.mod h1:l/rEmCVwqu6nRMdLIwF6HriyB0M4KevDdSKAlaNVw7U=
 github.com/0x51-dev/upeg v0.1.0 h1:ze3Uu4H9q0Fq8FuJmV1RsrTl85LholOZExCBwpujiPc=
 github.com/0x51-dev/upeg v0.1.0/go.mod h1:ts9/Zafxb9W9drZFTmQNMR7kLOyHyBw37NuowyiDork=
+github.com/liliang-cn/rdfgo v0.1.0 h1:yw5xcco/UDDOCPGydJpLN3M0ja7culVG7TLR/wCN/KM=
+github.com/liliang-cn/rdfgo v0.1.0/go.mod h1:J2WLLYYlD1ih/fFVqoy55tgvTkbCSpb3HgLHeOUrLuI=
