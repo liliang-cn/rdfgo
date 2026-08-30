@@ -4,8 +4,14 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/liliang-cn/rdfgo)](https://goreportcard.com/report/github.com/liliang-cn/rdfgo)
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A SPARQL 1.1 engine and a SHACL validator in Go, over a triple store you
-supply. **No dependencies** — `go list -m all` is one line.
+A SPARQL engine and a SHACL validator in Go, over a triple store you supply.
+**No dependencies** — `go list -m all` is one line.
+
+> **Conformance is not measured yet.** It has not been run against the W3C
+> SPARQL 1.1 or SHACL test suites, so nothing here claims a percentage. What it
+> has is 19 hand-written tests and a fuzz target. The feature list below is
+> what the code does, read off the code; treat it as a description and not as a
+> conformance claim until this paragraph is replaced by a number.
 
 ```bash
 go get github.com/liliang-cn/rdfgo
@@ -56,9 +62,19 @@ introduced here: `parseSPARQL` calls `ListNamespaces` once per query, so a SQL
 store pays a round trip per query; and `sh:class` is a direct `rdf:type` lookup
 with no subclass closure.
 
+## What it implements
+
+SELECT, ASK, CONSTRUCT, DESCRIBE. OPTIONAL, UNION, MINUS, VALUES, BIND, FILTER,
+EXISTS, sub-queries, property paths, aggregates, solution modifiers. INSERT
+DATA, DELETE DATA, DELETE WHERE, and INSERT/DELETE ... WHERE. SHACL node and
+property shapes: datatype, cardinality, value range, pattern, `sh:in`, node
+kind and class constraints, returned as a conformance report rather than an
+error.
+
 ## Tests
 
-17 in the core and 2 in `rdfio`, ported with their assertions unchanged, plus a
-fuzz target: 1.3 million executions, no crashes.
+17 in the core and 2 in `rdfio`, plus a fuzz target: 1.3 million executions, no
+crashes. See the conformance note at the top — these are the author's tests,
+not the W3C suites.
 
 MIT.
